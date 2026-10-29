@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8fa">
+  <title>ClassTrack — Attendance Calendar</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-icon">C</span>
+        ClassTrack
+      </a>
+      <div id="user-area" class="user-area hidden">
+        <span id="user-label"></span>
+        <button id="logout-btn" class="button quiet small">Log out</button>
+      </div>
+    </header>
+
+    <section id="auth-view" class="auth-layout">
+      <div class="intro">
+        <span class="eyebrow">YOUR LEARNING, ORGANIZED</span>
+        <h1>Show up.<br><span>Keep track.</span></h1>
+        <p>A simple, calm space to record the classes you attend, one date at a time.</p>
+        <div class="features">
+          <p>✓ &nbsp; Mark attendance in seconds</p>
+          <p>✎ &nbsp; Add a quick note to any day</p>
+          <p>▦ &nbsp; See your progress by month</p>
+        </div>
+      </div>
+
+      <div class="auth-card">
+        <div class="tabs">
+          <button id="login-tab" class="tab active" type="button">Log in</button>
+          <button id="register-tab" class="tab" type="button">Create account</button>
+        </div>
+
+        <form id="auth-form">
+          <h2 id="auth-title">Welcome back</h2>
+          <p id="auth-subtitle" class="muted">Enter your details to continue.</p>
+
+          <label for="username">Username</label>
+          <input id="username" name="username" autocomplete="username"
+                 minlength="3" maxlength="24" required
+                 placeholder="e.g. student01">
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password"
+                 autocomplete="current-password" minlength="8"
+                 maxlength="128" required placeholder="At least 8 characters">
+
+          <p id="auth-error" class="error" role="alert"></p>
+          <button id="auth-submit" class="button primary full" type="submit">Log in</button>
+          <p class="hint">Your attendance records are private to your account.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="app-view" class="hidden">
+      <div class="welcome-row">
+        <div>
+          <span class="eyebrow">YOUR ATTENDANCE</span>
+          <h1>My calendar</h1>
+          <p class="muted">Select a date to record a class you attended.</p>
+        </div>
+        <div class="month-total">
+          <strong id="month-count">0</strong>
+          <span>days this month</span>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <section class="card calendar-card">
+          <div class="calendar-toolbar">
+            <button id="prev-month" class="icon-button" type="button" aria-label="Previous month">‹</button>
+            <h2 id="month-title">Month Year</h2>
+            <button id="next-month" class="icon-button" type="button" aria-label="Next month">›</button>
+            <button id="today-btn" class="button quiet small" type="button">Today</button>
+          </div>
+
+          <div class="weekdays">
+            <span>Sun</span><span>Mon</span><span>Tue</span>
+            <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendar-grid" class="calendar-grid"></div>
+
+          <div class="legend">
+            <span><i class="dot attended-dot"></i> Attended</span>
+            <span><i class="dot selected-dot"></i> Selected date</span>
+          </div>
+        </section>
+
+        <aside class="card detail-card">
+          <span class="eyebrow">DAILY RECORD</span>
+          <h2 id="selected-date-title">Choose a date</h2>
+          <p id="selected-date-subtitle" class="muted">Click a calendar day to get started.</p>
+
+          <form id="attendance-form" class="hidden">
+            <label for="note">Class note <span class="optional">Optional</span></label>
+            <textarea id="note" rows="4" maxlength="200"
+                      placeholder="e.g. Web development — HTML and CSS"></textarea>
+            <div class="char-count"><span id="char-count">0</span>/200</div>
+            <button class="button primary full" type="submit">Save attendance</button>
+            <button id="remove-attendance" class="button danger full hidden"
+                    type="button">Remove attendance</button>
+          </form>
+
+          <div id="empty-detail" class="empty-detail">
+            <span class="empty-icon">✎</span>
+            <p>Select a day, add a note and save your attendance.</p>
+          </div>
+          <p id="app-message" class="message" role="status"></p>
+        </aside>
+      </div>
+
+      <section id="admin-panel" class="card admin-panel hidden">
+        <div class="admin-heading">
+          <div>
+            <span class="eyebrow">ADMINISTRATION</span>
+            <h2>Registered users</h2>
+          </div>
+          <span class="admin-tag">Master admin</span>
+        </div>
+        <p class="muted">View accounts and delete regular users.</p>
+        <div id="users-list"></div>
+      </section>
+
+      <footer class="footer">Made for your learning journey · ClassTrack</footer>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
